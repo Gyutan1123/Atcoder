@@ -2,8 +2,15 @@
 
 Atcoderでの、`Gyutaaan`の解答です。
 
-## treeのインストール
-sudo apt install tree
-
-## tree実行
-tree
+## ディレクトリ構造
+```
+.
+│   template.py
+│
+├───ABC
+│   └───ABCxxx
+│           A.py,B.py,....
+|
+└───lib
+        Factorization.py,...
+```
