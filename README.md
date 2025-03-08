@@ -5,6 +5,7 @@ Atcoderでの、`Gyutaaan`の解答です。
 ## ディレクトリ構造
 ```
 .
+|   createfiles.py
 │   template.py
 │
 ├───ABC
