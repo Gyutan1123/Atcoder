@@ -1,5 +1,5 @@
 import sys
-import collections, heapq
+import collections, heapq, string
 
 II = lambda: int(sys.stdin.readline().rstrip())
 SI = lambda: sys.stdin.readline().rstrip()
