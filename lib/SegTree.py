@@ -20,14 +20,10 @@ class SegTree:
       for i in range(self._n):
         self._d[self._size + i] = v[i]
       # 葉に近い場所から順に更新
-      for i in range(self._size-1, 0, -1):
-        self._update(i)
-        
-  def _update(self, k):
-    """親をノードを更新する
-    """
-    self._d[k] = self._op(self._d[2*k], self._d[2*k+1])
-    
+      while p:
+        self._d[p >> 1] = self._op(self._d[p], self._d[p ^ 1])
+        p >>= 1
+            
   def set(self, p, x):
     """ 更新クエリ
 
@@ -40,8 +36,9 @@ class SegTree:
     
     self._d[p] = x
     # 関連する場所を更新
-    for i in range(1, self._log+1):
-      self._update(p >> i)
+    while p:
+      self._d[p >> 1] = self._op(self._d[p], self._d[p ^ 1])
+      p >>= 1
       
   def prod(self, l, r):
     """ 取得クエリ
