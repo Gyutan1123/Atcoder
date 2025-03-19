@@ -8,5 +8,6 @@ MS = lambda: sys.stdin.readline().rstrip().split()
 LI = lambda: list(map(int, sys.stdin.readline().rstrip().split()))
 LS = lambda: list(sys.stdin.readline().rstrip().split())
 
+sys.setrecursionlimit(10**7)
 mod = 10**9 + 7
 ########################################################
