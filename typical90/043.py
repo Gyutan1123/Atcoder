@@ -56,8 +56,8 @@ while que:
       and (0 <= to_c and to_c < w)
       and S[to_r][to_c] == '.'):
     to = 4*(w*to_r+to_c)+d
-    if turn[to] > now_turn+1:
+    if turn[to] > now_turn:
       turn[to] = now_turn
-      que.append(to)
+      que.appendleft(to)
     
 print(min(turn[4*(w*rt+ct):4*(w*rt+ct)+4]))
