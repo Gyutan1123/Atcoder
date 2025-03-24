@@ -6,7 +6,7 @@ SI = lambda: input()
 MI = lambda: map(int, input().split())
 MS = lambda: input().split()
 LI = lambda: list(MI())
-LS = lambda: list(LS())
+LS = lambda: list(MS())
 
 sys.setrecursionlimit(10**7)
 mod = 10**9 + 7
