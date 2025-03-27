@@ -24,6 +24,8 @@ A += A
 tmp = 0
 right = 0
 ans = 'No'
+
+# 尺取り
 for left in range(2*n):
   while (right < 2*n and tmp+A[right] <= wholeSize//10):
     tmp += A[right]

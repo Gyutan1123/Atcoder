@@ -31,22 +31,19 @@ for i in range(n):
       right = max(right, j)
       left = min(left, j)
 
+# 行列の90度回転
+# https://qiita.com/rudorufu1981/items/5341d9603ecb1f9c2e5c
+
 zukei0 = [S[i][left:right+1] for i in range(bottom, top+1)]
-
 zukei1 = []
-for s in zukei0:
-  zukei1.append(s[::-1])
-zukei1.reverse()
-
 zukei2 = []
-for s in list(zip(*zukei0)):
-  zukei2.append(list(s))
-zukei2.reverse()
-
 zukei3 = []
-for s in zukei2:
-  zukei3.append(list(s[::-1]))
-zukei3.reverse()
+for s in zip(*zukei0[::-1]):
+  zukei1.append(list(s))
+for s in zip(*zukei1[::-1]):
+  zukei2.append(list(s))
+for s in zip(*zukei2[::-1]):
+  zukei3.append(list(s))
 
 top = 0
 bottom = n-1

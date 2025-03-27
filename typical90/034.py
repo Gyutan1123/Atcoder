@@ -16,6 +16,8 @@ d = collections.defaultdict(lambda:0)
 right = 0
 ans = 0
 num = 0
+
+# 尺取り
 for left in range(n):
   while (right < n and (d[a[right]] >= 1 or num < k)):
     if d[a[right]] == 0:
