@@ -19,10 +19,8 @@ class SegTree:
       # 葉に対象の列を格納
       for i in range(self._n):
         self._d[self._size + i] = v[i]
-      # 葉に近い場所から順に更新
-      while p:
-        self._d[p >> 1] = self._op(self._d[p], self._d[p ^ 1])
-        p >>= 1
+      for i in range(self._size - 1, 0, -1):
+        self._d[i] = self._op(self._d[i << 1], self._d[i << 1 | 1])
             
   def set(self, p, x):
     """ 更新クエリ
