@@ -16,3 +16,13 @@ LS = lambda: list(MS())
 sys.setrecursionlimit(10**7)
 mod = 10**9 + 7
 ########################################################
+
+n = II()
+A = LI()
+q = II()
+d = collections.defaultdict(list)
+for i in range(n):
+  d[A[i]].append(i+1)
+for _ in range(q):
+  l,r,x = MI()
+  print(bisect.bisect_right(d[x],r)-bisect.bisect_left(d[x],l))

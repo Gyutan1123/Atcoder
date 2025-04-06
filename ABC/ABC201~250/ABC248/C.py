@@ -1,5 +1,5 @@
 import sys
-import collections, heapq, string, math, itertools, copy, bisect
+import collections, heapq, string, math, itertools, copy
 from sortedcontainers import SortedSet, SortedList, SortedDict
 
 # pypyで再帰書く時のおまじない
@@ -14,5 +14,19 @@ LI = lambda: list(MI())
 LS = lambda: list(MS())
 
 sys.setrecursionlimit(10**7)
-mod = 10**9 + 7
+mod = 998244353
 ########################################################
+
+n,m,k = MI()
+
+dp = [[0]*(k+1) for _ in range(n+1)]
+
+dp[0][0] = 1
+
+for i in range(n):
+  for j in range(k+1):
+    for l in range(1,m+1):
+      if j+l <= k:
+        dp[i+1][j+l] += dp[i][j]%mod
+        
+print(sum(dp[n])%mod)
