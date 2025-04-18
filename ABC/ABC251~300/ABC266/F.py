@@ -29,6 +29,7 @@ for _ in range(n):
 visited = [False]*(n+1)
 finished = [False]*(n+1)
 # サイクル検出、復元
+# 閉路検出，復元
 # https://drken1215.hatenablog.com/entry/2023/05/20/200517
 def dfs(now,pre,history):
   visited[now] = True
