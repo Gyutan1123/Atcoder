@@ -5,12 +5,12 @@ class RollingHash:
     self.base_pow = [1]
     self.hash = [0]
     
-    n = len(s)
-    for _ in range(n):
+    self.n = len(s)
+    for _ in range(self.n):
       self.base_pow.append((self.base_pow[-1]*base)%self.mod)
     
     hash = 0
-    for i in range(n):
+    for i in range(self.n):
       hash *= base
       hash %= mod
       hash += (ord(self.s[i]) - ord('a') + 1)
