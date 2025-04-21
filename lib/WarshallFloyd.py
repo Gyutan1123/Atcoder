@@ -1,4 +1,4 @@
-def warshall_floyd(graph):
+def WarshallFloyd(graph):
   """
   ワーシャル・フロイド法で全点対間最短経路を計算する
 
@@ -16,6 +16,6 @@ def warshall_floyd(graph):
   for k in range(n):
     for i in range(n):
       for j in range(n):
-        if graph[i][k] != INF and graph[k][j] != INF:
+        if dist[i][k] != INF and dist[k][j] != INF:
           dist[i][j] = min(dist[i][j], dist[i][k] + dist[k][j])
   return dist
