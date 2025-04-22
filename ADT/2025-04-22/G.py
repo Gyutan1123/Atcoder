@@ -1,0 +1,39 @@
+import sys
+import collections, heapq, string, math, itertools, copy, bisect
+from sortedcontainers import SortedSet, SortedList, SortedDict
+
+# pypyで再帰書く時のおまじない
+# import pypyjit
+# pypyjit.set_param('max_unroll_recursion=-1')
+
+II = lambda: int(input())
+SI = lambda: input()
+MI = lambda: map(int, input().split())
+MS = lambda: input().split()
+LI = lambda: list(MI())
+LS = lambda: list(MS())
+
+sys.setrecursionlimit(10**7)
+mod = 998244353
+########################################################
+n = II()
+a = LI()
+b = LI()
+
+dp = [[0]*(3001) for _ in range(n+1)]
+
+dp[0][0] = 1
+
+for i in range(n):
+  S = [0]
+  for j in range(3001):
+    S.append(S[-1]+dp[i][j])
+    
+  for j in range(3001):
+    if not a[i] <= j <= b[i]:
+      continue
+    
+    dp[i+1][j] += S[j+1] % mod
+    
+
+print(sum(dp[n])%mod)
