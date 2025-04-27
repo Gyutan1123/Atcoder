@@ -22,6 +22,9 @@ class TrieNode:
   def __init__(self,item=None):
     self.item = item
     self.children = [-1 for _ in range(VOCAB_SIZE)]
+    self.subCnt = 0
+    self.hasBanned = False
+  
   
 class Trie:
   def __init__(self):
@@ -35,6 +38,57 @@ class Trie:
   
   def __get_char_num(self,c):
     return ord(c) - ord('a')
+  
+  def addY(self, word):
+    nodeIndex = 0
+    path = [0]
+    for c in word:
+      node = self.nodes[nodeIndex]
+      if node.hasBanned:
+        return 
+      charNum = self.__get_char_num(c)
+      nextNodeIndex = node.children[charNum]
+      if nextNodeIndex == -1:
+        newNode = TrieNode()
+        nextNodeIndex = self.__add_node(newNode)
+        node.children[charNum] = nextNodeIndex
+      nodeIndex = nextNodeIndex
+      path.append(nodeIndex)
+    
+    node = self.nodes[nodeIndex]
+    if node.hasBanned:
+      return
+    
+    for i in path:
+      self.nodes[i].subCnt += 1
+    
+  def addX(self, word):
+    nodeIndex = 0
+    path = [0]
+
+    for c in word:
+      node = self.nodes[nodeIndex]
+      if node.hasBanned:
+        return
+      nextNodeIndex = node.children[self.__get_char_num(c)]
+      if nextNodeIndex == -1:
+        newNode = TrieNode()
+        nextNodeIndex = self.__add_node(newNode)
+        self.nodes[nodeIndex].children[self.__get_char_num(c)] = nextNodeIndex
+      
+      nodeIndex = nextNodeIndex
+      path.append(nodeIndex)
+      
+    node = self.nodes[nodeIndex]
+    
+    if node.hasBanned:
+      return
+
+    node.hasBanned = True
+    cnt = node.subCnt
+    for i in path:
+      self.nodes[i].subCnt -= cnt
+        
     
   def insert(self, word, item, charIndex=0, nodeIndex=0):
     charNum = self.__get_char_num(word[charIndex])
