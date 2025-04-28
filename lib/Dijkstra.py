@@ -37,12 +37,12 @@ def dijkstra(graph, start, getPath=False, goal=None):
         if getPath:
           prev[to] = now
           
-    if getPath and visited[goal]:
-      now = goal
-      shortestPath.append(goal)
-      while now != start:
-        now = prev[now]
-        shortestPath.append(now)
+  if getPath and visited[goal]:
+    now = goal
+    shortestPath.append(goal)
+    while now != start:
+      now = prev[now]
+      shortestPath.append(now)
       
   if getPath:
     return dist, shortestPath
