@@ -18,7 +18,7 @@ def main():
     files_to_create = ["A.py", "B.py", "C.py", "D.py", "E.py","F.py","G.py"]
 
     if args.prefix == 'ADT':
-      target_dir = datetime.datetime.today().strftime("%Y-%m-%d")
+      target_dir = "ADT/"+datetime.datetime.today().strftime("%Y-%m-%d")
       files_to_create = ["A.py", "B.py", "C.py", "D.py", "E.py","F.py","G.py","H.py","I.py"]
       
     os.makedirs(target_dir, exist_ok=True)
