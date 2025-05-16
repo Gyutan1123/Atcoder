@@ -1,13 +1,6 @@
 import sys
-# import collections
-# import math
-# import itertools
-# import heapq
-# import bisect
-# import string
-# import copy
-# import functools
-# from sortedcontainers import SortedSet, SortedList, SortedDict
+import collections, heapq, string, math, itertools, copy, bisect, functools
+from sortedcontainers import SortedSet, SortedList, SortedDict
 
 # pypyで再帰書く時のおまじない
 # import pypyjit
