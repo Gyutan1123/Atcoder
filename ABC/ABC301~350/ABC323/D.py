@@ -1,4 +1,7 @@
 import sys
+import collections, heapq, string, math, itertools, copy, bisect
+from sortedcontainers import SortedSet, SortedList, SortedDict
+
 # pypyで再帰書く時のおまじない
 # import pypyjit
 # pypyjit.set_param('max_unroll_recursion=-1')
@@ -13,30 +16,27 @@ LS = lambda: list(MS())
 sys.setrecursionlimit(10**7)
 mod = 10**9 + 7
 ########################################################
-
-import collections
-import heapq
-
 n = II()
-S = [LI() for _ in range(n)]
 
 que = []
-
 d = collections.defaultdict(int)
-for s,c in S:
-  heapq.heappush(que, s)
+for _ in range(n):
+  s,c = MI()
+  que.append(s)
   d[s] += c
+
+heapq.heapify(que)
 
 ans = 0
 while que:
   s = heapq.heappop(que)
   c = d[s]
-  ans += c%2
-  d[s] = c%2
+  ans += c&1
+  d[s] = c&1
   if c >= 2:
-    t = 2*s
+    t = s<<1
     if t not in d:
       heapq.heappush(que, t)
-    d[t] += c//2
+    d[t] += c>>1
 
 print(ans)
