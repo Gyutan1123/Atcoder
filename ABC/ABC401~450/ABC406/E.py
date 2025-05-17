@@ -15,46 +15,46 @@ LS = lambda: list(MS())
 
 sys.setrecursionlimit(10**7)
 mod = 998244353
-########################################################
+########################################################  
 
 t = II()
-
 for _ in range(t):
-  n,K = MI()
-  
-  dp1 = [[0]*2 for _ in range(61)]
-  dp2 = [[0]*2 for _ in range(6)]
-  
-  dp1[0][1] = 1
-  
-  for i in range(59,-1,-1):
-    nextdp1 = [[0]*2 for _ in range(61)]
-    nextdp2 = [[0]*2 for _ in range(61)]
+  n,k = MI()
+  N = format(n, '060b')
+
+  dpCount = [[[0]*(k+1) for _ in range(2)] for _ in range(61)] 
+  dpSum = [[[0]*(k+1) for _ in range(2)] for _ in range(61)]
+ 
+  dpCount[0][0][0] = 1
+  for i in range(60):
+    bit = (n>>(59-i))&1
+    for j in range(k+1):
+      dpCount[i+1][1][j] += dpCount[i][1][j]
+      dpCount[i+1][1][j] %= mod
+      dpSum[i+1][1][j] += dpSum[i][1][j]*2
+      dpSum[i+1][1][j] %= mod
+      
+      if j+1 <= k:
+        dpCount[i+1][1][j+1] += dpCount[i][1][j]
+        dpCount[i+1][1][j+1] %= mod 
+        
+        dpSum[i+1][1][j+1] += dpSum[i][1][j]*2 + dpCount[i][1][j]
+        dpSum[i+1][1][j+1] %= mod
+        
+      if bit == 1:
+        if j+1 <= k:
+          dpCount[i+1][0][j+1] += dpCount[i][0][j]
+          dpCount[i+1][0][j+1] %= mod
+          dpSum[i+1][0][j+1] += dpSum[i][0][j]*2 + dpCount[i][0][j]
+          dpSum[i+1][0][j+1] %= mod
+        dpCount[i+1][1][j] += dpCount[i][0][j]
+        dpCount[i+1][1][j] %= mod
+        dpSum[i+1][1][j] += dpSum[i][0][j]*2
+        dpSum[i+1][1][j] %= mod
+      else:
+        dpCount[i+1][0][j] += dpCount[i][0][j]
+        dpCount[i+1][0][j] %= mod
+        dpSum[i+1][0][j] += dpSum[i][0][j]*2
+        dpSum[i+1][0][j] %= mod
     
-    w = (1<<i)%mod
-    
-    for j in range(59,-1,-1):
-      for k in range(2):
-        tmp1 = dp1[j][k]
-        tmp2 = dp2[j][k]
-        for l in range(2):
-          if j+l > K:
-            continue
-          if k == 1 and l > (n>>i)&1:
-            continue
-          
-          if k == 1 and l == (n>>i)&1:
-            nextk = 1
-          else:
-            nextk = 0
-            
-          nextdp1[j+l][nextk] += tmp1
-          nextdp1[j+l][nextk] %= mod
-          
-          add = (tmp2+tmp1*l*w)%mod
-          nextdp2[j+l][nextk] += add
-          nextdp2[j+l][nextk] %= mod
-    dp1 = nextdp1
-    dp2 = nextdp2
-    
-  print((dp2[K][0]+dp2[K][1])%mod)
+  print((dpSum[i+1][0][k]+dpSum[i+1][1][k])%mod) 
