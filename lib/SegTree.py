@@ -77,6 +77,11 @@ class SegTree:
     """
     return self._d[p + self._size]
   
+  def add(self, p, x):
+    """ a_pにxを加算するメソッド
+    """
+    self.set(p, self.get(p) + x)
+  
 # 遅延セグ木(区間加算用）
 # https://qiita.com/takayg1/items/b7b3f7d458915bcc7a4e
 class LazySegTree_RAQ:
