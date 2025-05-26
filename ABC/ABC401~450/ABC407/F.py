@@ -62,14 +62,18 @@ CT = CartesianTree(B)
 def dfs(CT, i):
   if i == -1:
     return 0
-  l = dfs(CT, CT.left[i])+1
-  r = dfs(CT, CT.right[i])+1
+  # 左の部分木のサイズ
+  l = dfs(CT, CT.left[i])
+  # 右の部分木のサイズ
+  r = dfs(CT, CT.right[i])
   
   ans[0] += A[i]
-  ans[l] -= A[i]
-  ans[r] -= A[i]
-  ans[l+r] += A[i]
-  return l+r-1
+  ans[l+1] -= A[i]
+  ans[r+1] -= A[i]
+  ans[l+r+2] += A[i]
+  
+  # 親に戻るときに部分木のサイズを返す
+  return l+r+1
   
 dfs(CT, CT.root)
 for i in range(n+1):
