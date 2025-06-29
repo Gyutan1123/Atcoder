@@ -7,7 +7,7 @@ class SegmentSieve:
   unique=Trueを指定すると素因数のリスト
   with_exp=Trueを指定すると素因数とその指数のタプルのリストを返す
   """
-  
+  __slots__ = ("l","r","sqrt_r","lpf","rem","factors")
   def __init__(self, l, r):
     self.l = l
     self.r = r
@@ -15,57 +15,50 @@ class SegmentSieve:
     self.sqrt_r = int(r**0.5)+1
     
     self.lpf = list(range(self.sqrt_r))
-    self.mpf = [[] for _ in range(self.r-self.l)]
-    self.aux = [1]*(self.r-self.l)
     
+    self.rem = list(range(self.l, self.r))
+    self.factors = [[] for _ in range(self.r-self.l)]
      
     self._build()
   
-  def _build(self):
+  def _calculate_lpf(self):
     for p in range(2, self.sqrt_r):
       if self.lpf[p] < p:
         continue
-      
-      self.lpf[p] = p
-      
       for q in range(p*p, self.sqrt_r, p):
         if self.lpf[q] == q:
           self.lpf[q] = p
         
-      start = self.l + (-self.l) % p
+  def _build(self):
+    self._calculate_lpf()
+    
+    for p in range(2, self.sqrt_r):
+      if self.lpf[p] < p:
+        continue
       
+      start = self.l + (-self.l) % p
       for q in range(start, self.r, p):
         i = q - self.l
-        r = q
-        while r % p == 0:
-          if self.aux[i]*self.aux[i] > self.r:
-            break
-          
-          self.mpf[i].append(p)
-          self.aux[i] *= p
-          r //= p
-          
-  def factor(self, n, unique=False, with_exp=False):
+        while self.rem[i] % p == 0:
+          self.factors[i].append(p)
+          self.rem[i] //= p
+    
+    
+  def factor(self, n, unique=False, with_exp=False):    
     i = n - self.l
-    ret = self.mpf[i].copy()
+    ret = self.factors[i].copy()
     
-    m = n // self.aux[i]
-    
-    if m >= self.sqrt_r:
-      ret.append(m)
-    else:
-      while m > 1:
-        p = self.lpf[m]
-        ret.append(p)
-        m //= p
+    if self.rem[i] > 1:
+      ret.append(self.rem[i])
     
     if unique:
-      ret = list(set(ret))
-      return ret
+      return list(set(ret))
     
     if with_exp:
-      from collections import Counter
-      ret = sorted(Counter(ret).items())
-      return ret
-    
+      if not ret:
+        return []
+      
+      import collections
+      return list(collections.Counter(ret).items())
+
     return ret
