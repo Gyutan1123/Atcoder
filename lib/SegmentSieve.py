@@ -1,7 +1,6 @@
 class SegmentSieve:
   """
   区間[l,r)に含まれる整数を区間篩で素因数分解するクラス
-  計算量はO((r-l)loglogr)
   
   factor(n) でnの素因数分解を返す
   unique=Trueを指定すると素因数のリスト
